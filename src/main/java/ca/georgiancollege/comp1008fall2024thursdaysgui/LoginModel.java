@@ -1,5 +1,10 @@
 package ca.georgiancollege.comp1008fall2024thursdaysgui;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class LoginModel {
 
     /*
@@ -23,8 +28,42 @@ public class LoginModel {
 
      */
 
-    public LoginModel(){}
-    public void registerUser(String username, String password){}
+    Path path;
+
+    public LoginModel(){
+
+        try{
+            path = Path.of("src", "main", "resources",
+                    "ca", "georgiancollege", "comp1008fall2024thursdaysgui",
+                    "data");
+
+            if(!Files.exists(path)){
+                Files.createDirectory(path);
+            }
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException("Error creating directory");
+        }
+    }
+
+    /**
+     * This method handles the logic of the user registration
+     * @param username username of user
+     * @param password password of user
+     * @throws IllegalArgumentException if user already exists
+     * @throws IOException if we don't have the required permissions
+     */
+    public void registerUser(String username, String password)
+            throws IllegalArgumentException, IOException {
+
+            String filename = username + ".txt";
+
+            if(Files.exists(path.resolve(filename)))
+                throw new IllegalArgumentException("User " + username + " already exists");
+
+            Files.writeString(path.resolve(filename), password);
+
+    }
 
 
 

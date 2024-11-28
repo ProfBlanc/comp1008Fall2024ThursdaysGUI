@@ -47,6 +47,8 @@ public class LoginController {
     @FXML
     void onLoginClick(ActionEvent event){
 
+        System.out.println("To be continued");
+
     }
 
     @FXML
@@ -54,6 +56,12 @@ public class LoginController {
         //System.out.println("Register Clicked");
         try {
             model.registerUser(txtEmail.getText(), txtPassword.getText());
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Successsfully Registered");
+            alert.setContentText("You have successfully registered");
+            alert.show();
+
         }
         catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
